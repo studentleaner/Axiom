@@ -55,16 +55,20 @@ class AxiomRuntime:
             
             merged_config = prompt.config.model_dump(exclude_unset=True) if prompt.config else {}
             
+            # Freeze the Exact Deterministic Execution Variables
+            version = getattr(prompt, "version", "1.0.0")
+            frozen_ref = f"{prompt.id}@{version}"
+            
             node_id = f"node_{prompt.id.replace('.', '_')}"
             while node_id in nodes:
                  node_id += "_next"
                  
             nodes[node_id] = ExecutionNode(
                 type="prompt",
-                ref=prompt.id,
+                ref=frozen_ref,       
                 messages=resolved_messages,
                 config=merged_config,
-                resolved_prompts=[prompt.id]
+                resolved_prompts=[frozen_ref] 
             )
             edges.append(ExecutionEdge(**{"from": last_edge_from, "to": node_id}))
             return node_id
