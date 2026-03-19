@@ -42,11 +42,11 @@ def test_runtime_compiles_usecase():
     plan = engine.build("usecase.chat", inputs)
     
     assert plan.id == "plan.usecase.chat"
-    assert "node_prompt_chat" in plan.nodes
+    assert "node_skill_chat" in plan.nodes
     assert len(plan.edges) > 0
-    assert plan.nodes["node_prompt_chat"].type == "prompt"
+    assert plan.nodes["node_skill_chat"].type == "prompt"
     
-    node = plan.nodes["node_prompt_chat"]
+    node = plan.nodes["node_skill_chat"]
     assert len(node.messages) == 1
     assert node.messages[0]["content"] == "You are helpful."
     assert node.config["temperature"] == 0.5

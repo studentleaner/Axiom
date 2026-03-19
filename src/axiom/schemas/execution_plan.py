@@ -13,6 +13,7 @@ class ExecutionEdge(BaseModel):
     
     from_node: str = Field(alias="from")
     to_node: str = Field(alias="to")
+    condition: Optional[Dict[str, Any]] = None
 
 class ExecutionPlan(BaseModel):
     id: str

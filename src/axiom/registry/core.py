@@ -1,5 +1,5 @@
 from typing import Dict, List, Optional, Any
-from ..schemas import BaseAxiomModel, Template, Prompt, Skill, UseCase
+from ..schemas import BaseAxiomModel, Template, Prompt, Skill, UseCase, Workflow
 from .loader import SchemaLoader
 
 class AxiomRegistry:
@@ -32,6 +32,7 @@ class AxiomRegistry:
         elif t == "prompt": model = Prompt(**raw_data)
         elif t == "skill": model = Skill(**raw_data)
         elif t == "usecase": model = UseCase(**raw_data)
+        elif t == "workflow": model = Workflow(**raw_data)
         else: raise ValueError(f"Unknown schema type: {t}")
 
         version = getattr(model, "version", "1.0.0")
